@@ -1,0 +1,67 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md nowrap align-item-center pt-3 pb-2 border-bottom"
+>
+  <h1 class="h2"><%=currentInventory.category%> <%=currentInventory.name%></h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2"></div>
+    <% if(user) { %>
+    <a href="/add" class="btn btn-sm btn-outline-secondary">+ New Inventory</a>
+    <%}%>
+  </div>
+</div>
+<div class="col py-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+          <li class="breadcrumb-item active"><%=currentInventory.category%></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col text-end fw-lighter">
+      <b
+        >Last Update <%= new Date(currentInventory.updatedAt).toUTCString()
+        %></b
+      >
+    </div>
+  </div>
+</div>
+<ul class="list-group">
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Category </b></div>
+      <div class="col"><%=currentInventory.category%></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Item Name </b></div>
+      <div class="col"><%=currentInventory.name%></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Size </b></div>
+      <div class="col"><%=currentInventory.size%></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Items Details </b></div>
+      <div class="col"><%=currentInventory.details%></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Date Created </b></div>
+      <div class="col"><%=currentInventory.createdAt%></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Date Modified </b></div>
+      <div class="col"><%=currentInventory.updatedAt%></div>
+    </div>
+  </li>
+</ul>

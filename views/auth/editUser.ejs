@@ -1,0 +1,126 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md nowrap align-item-center pt-3 pb-2 border-bottom"
+>
+  <h1 class="h2">Update User</h1>
+
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2"></div>
+    <button href="/auth/sign-up" class="btn btn-sm btn-outline-secondary">
+      ?
+    </button>
+  </div>
+</div>
+<div class="col py-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/auth/usersInfo">Users Information</a>
+          </li>
+          <li class="breadcrumb-item active">Update User Information</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col text-end fw-lighter">
+      <b>UserId</b>
+    </div>
+  </div>
+</div>
+<form action="/auth/<%=currentUser._id %>?_method=PUT" method="POST">
+  <div class="row form-group mb-4">
+    <div class="col">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        value="<%=currentUser.name%>"
+        placeholder="Name"
+        required
+      />
+    </div>
+
+    <div class="col">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        name="email"
+        value="<%=currentUser.email%>"
+        placeholder="Email"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="row form-group mb-4">
+    <div class="col">
+      <label for="tel">Contact Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="tel"
+        name="tel"
+        value="<%=currentUser.tel%>"
+        placeholder="Contact Number"
+        required
+      />
+    </div>
+
+    <div class="col">
+      <label for="username">User Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        name="username"
+        value="<%=currentUser.username%>"
+        placeholder="User Name"
+        required
+      />
+    </div>
+  </div>
+  <div class="row form-group mb-4">
+    <div class="col">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        value="<%=currentUser.password%>"
+        placeholder="Password"
+        required
+      />
+    </div>
+
+    <div class="col">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="confirmPassword"
+        name="confirmPassword"
+        value="<%=currentUser.password%>"
+        placeholder="Confirm Password"
+        required
+      />
+    </div>
+  </div>
+  <% if(rank1=='Admin') {%>
+  <div class="form-group mb-4">
+    <input type="checkbox" id="rank" name="rank" <%= currentUser.rank?
+    'checked':'' %> />
+    <label for="vehicle1">Admin</label><br />
+  </div>
+  <%}%>
+  <div class="form-group mb-4">
+    <button type="submit" class="btn btn-primary">Update</button>
+  </div>
+</form>

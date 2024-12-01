@@ -1,0 +1,60 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md nowrap align-item-center pt-3 pb-2 border-bottom"
+>
+  <h1 class="h2">Search Users</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2"></div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Contact Number</th>
+        <th scope="col" class="text-end">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% user.forEach(item => { %>
+      <tr class="align-middle">
+        <td><%=item.name %></td>
+        <td><%=item.email%></td>
+        <td><%=item.tel%></td>
+        <td>
+          <div class="d-flex flex-row justify-content-end gap-2">
+            <a
+              href="/auth/<%= item._id %>/viewUser"
+              type="button"
+              class="btn btn-primary btn-small"
+            >
+              <i class="bi bi-eye"></i>
+            </a>
+            <% if(user) {%>
+            <a
+              href="/auth/<%=item._id %>/editUser"
+              type="button"
+              class="btn btn-warning btn btn-small"
+            >
+              <i class="bi bi-pencil"></i>
+            </a>
+
+            <form
+              action="/<%=item._id %>?_method=DELETE"
+              method="POST"
+              class="position-relative"
+            >
+              <% if(rank1=='Admin'){%>
+              <button type="submit" class="btn btn-danger btn-small">
+                <i class="bi bi-trash"></i>
+              </button>
+              <%}%> <%}%>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <% })%>
+    </tbody>
+  </table>
+</div>

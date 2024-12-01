@@ -1,0 +1,43 @@
+<nav
+  id="sidebarMenu"
+  class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+>
+  <div class="position-sticky pt-3 sidebar-sticky">
+    <ul class="nav flex-column">
+      <% if(user){ %>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/">
+          <i class="bi bi-house"></i>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/cart/itemstatus">
+          <i class="bi bi-cart4"></i>
+          Cart
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/auth/usersinfo">
+          <i class="bi bi-people"></i>
+          Users Information
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/sign-out">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Sign Out
+        </a>
+        <% } else { %>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/sign-in">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Sign In
+        </a>
+        <% } %>
+      </li>
+    </ul>
+  </div>
+</nav>

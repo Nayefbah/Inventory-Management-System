@@ -1,0 +1,61 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md nowrap align-item-center pt-3 pb-2 border-bottom"
+>
+  <h1 class="h2">Sign In</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2"></div>
+    <a href="/auth/sign-up" class="btn btn-sm btn-outline-secondary"
+      ><i class="bi bi-plus-square"></i> New User</a
+    >
+  </div>
+</div>
+
+<div class="col py-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+          <li class="breadcrumb-item active">Sign In</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col text-end fw-lighter">
+      <b>UserId</b>
+    </div>
+  </div>
+</div>
+<form action="/auth/sign-in" method="POST">
+  <div class="row form-group mb-4">
+  <div class="row form-group mb-4">
+    <div class="col">
+      <label for="username">User Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        name="username"
+        value=""
+        placeholder="User Name"
+        required
+      />
+    </div>
+  </div>
+  <div class="row form-group mb-4">
+    <div class="col">
+      <label for="Password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        value=""
+        placeholder="Password"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-group mb-4">
+    <button type="submit" class="btn btn-primary">Sign In</button>
+  </div>
+</form>

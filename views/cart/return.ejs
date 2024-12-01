@@ -1,0 +1,82 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md nowrap align-item-center pt-3 pb-2 border-bottom"
+>
+  <h1 class="h2"><%=currentInventory.category%> <%=currentInventory.name%></h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2"></div>
+  </div>
+</div>
+<div class="col py-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+          <li class="breadcrumb-item">
+            <a href="/cart/itemStatus">Item Status</a>
+          </li>
+          <li class="breadcrumb-item active"><%=currentInventory.category%></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col text-end fw-lighter">
+      <b
+        >Last Update <%= new Date(currentInventory.updatedAt).toUTCString()
+        %></b
+      >
+    </div>
+  </div>
+</div>
+<form action="/cart/return/<%=cart._id%>" method="POST">
+  <div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col" style="max-width: 140px"><b>Category </b></div>
+          <div class="col"><%=currentInventory.category%></div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col" style="max-width: 140px"><b>Item Name </b></div>
+          <div class="col"><%=currentInventory.name%></div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col" style="max-width: 140px"><b>Size </b></div>
+          <div class="col"><%=currentInventory.size%></div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col" style="max-width: 140px">
+            <b>Ordered Quantity </b>
+          </div>
+          <div class="col"><%=cart.quantity%></div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col" style="max-width: 140px"><b>Items Details </b></div>
+          <div class="col"><%=currentInventory.details%></div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col" style="max-width: 140px">
+            <b>Returned Quantity </b>
+          </div>
+          <div class="col">
+            <input for="quantity" id="quantity" name="quantity" />
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <br />
+  <br />
+  <div class="form-group mb-4">
+    <button type="submit" class="btn btn-primary">Item Returned</button>
+  </div>
+</form>
