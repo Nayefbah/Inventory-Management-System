@@ -8,40 +8,47 @@ exports.signup = (req, res) => {
     title: 'Sign Up',
     description: 'New User Registration'
   }
-  res.render('auth/sign-up.ejs', locals)
+
+  const messages = req.flash()
+  res.render('auth/sign-up.ejs', { locals, messages })
 }
 
 exports.signup_post = async (req, res) => {
-  if (req.body.rank === 'on') {
-    req.body.rank = true
-  } else {
-    req.body.rank = false
-  }
-  const info = {
-    name: req.body.Name,
-    email: req.body.email,
-    tel: req.body.tel,
-    username: req.body.username,
-    password: req.body.password,
-    confirmPassword: req.body.confirmPassword,
-    rank: req.body.rank
-  }
+  try {
+    req.body.rank = req.body.rank === 'on'
 
-  const userInDatabase = await User.findOne({ username: info.username })
-  if (userInDatabase) {
-    return res.send('Username already taken')
+    const info = {
+      name: req.body.Name,
+      email: req.body.email,
+      tel: req.body.tel,
+      username: req.body.username,
+      password: req.body.password,
+      confirmPassword: req.body.confirmPassword,
+      rank: req.body.rank
+    }
+
+    const userInDatabase = await User.findOne({ username: info.username })
+    if (userInDatabase) {
+      req.flash('error', 'Username already taken.')
+      return res.redirect('/auth/sign-up')
+    }
+
+    if (info.password !== info.confirmPassword) {
+      req.flash('error', 'Password and Confirm Password must match.')
+      return res.redirect('/auth/sign-up')
+    }
+
+    const hashedPassword = await bcrypt.hash(info.password, 10)
+    info.password = hashedPassword
+
+    const user = await User.create(info)
+    req.flash('success', `Thanks for signing up, ${user.username}!`)
+    return res.redirect('/auth/sign-in')
+  } catch (err) {
+    console.error('Error during signup:', err)
+    req.flash('error', 'An error occurred during signup. Please try again.')
+    res.redirect('/auth/sign-up')
   }
-
-  if (info.password !== info.confirmPassword) {
-    return res.send('Password and Confirm Password must match')
-  }
-  console.log(info)
-
-  const hashedPassword = bcrypt.hashSync(info.password, 10)
-  info.password = hashedPassword
-
-  const user = await User.create(info)
-  res.send(`Thanks for signing up ${user.username}`)
 }
 
 exports.signin = (req, res) => {

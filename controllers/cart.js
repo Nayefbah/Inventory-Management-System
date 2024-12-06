@@ -236,18 +236,21 @@ exports.return = async (req, res) => {
   }
 }
 
-exports.createReturn = async (req, res) => {
+exports.createReturn = async (req, res, next) => {
   try {
     const originalCart = await Cart.findById(req.params.cartId)
-
+    const messages = await req.flash('info')
     if (!originalCart) {
       req.flash('error', 'Cart entry not found.')
       return res.redirect('/cart/return')
     }
 
     if (originalCart.quantity < req.body.quantity) {
-      req.flash('error', 'Returned quantity exceeds items in the cart.')
-      return res.redirect('/cart/return')
+      req.flash(
+        'info',
+        `You cannot return more than ${originalCart.quantity} items.`
+      )
+      return res.redirect('/cart/itemStatus')
     }
 
     const updatedCart = await Cart.findByIdAndUpdate(
@@ -256,20 +259,20 @@ exports.createReturn = async (req, res) => {
       { new: true }
     )
 
-    const returnCart = {
+    const returnCart = await Cart.create({
       inventoryId: req.session.inventoryId,
       userId: originalCart.userId,
       status: 'Returned',
       quantity: req.body.quantity
-    }
+    })
 
-    await Cart.create(returnCart)
+    await Inventory.findByIdAndUpdate(req.session.inventoryId, {
+      $inc: { stock: req.body.quantity }
+    })
 
-    await req.flash('info', `Item was returned and added to inventory.`)
-    res.redirect('/cart/itemStatus')
-  } catch (error) {
-    console.error('Error creating return:', error)
-    req.flash('error', 'Error processing return.')
-    res.redirect('/')
+    req.flash('success', 'Return processed successfully.')
+    res.redirect('/cart')
+  } catch (err) {
+    next(err)
   }
 }
